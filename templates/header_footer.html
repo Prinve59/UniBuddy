@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="static/images/title-logo.png"
+      style="border-radius: 999px"
+    />
+    <title>UniBuddy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="/static/script.js"></script>
+  </head>
+  <body class="bg-[#06002E] text-white h-full">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden lg:block"></div>
+    <div class="lg:p-4 lg:px-24">
+      <nav
+        class="cocomat-light uppercase flex justify-center :justify-between items-center lg:h-11 relative"
+      >
+        <!-- User Profile Icon -->
+        <button
+          id="user"
+          class="inline-flex absolute left-0 items-center m-4 p-2 w-9 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden focus:outline-none"
+          aria-controls="user-default"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Toggle menu</span>
+          <svg
+            id="user-icon"
+            class="opacity-75"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="#eaf7f6"
+              d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"
+            />
+          </svg>
+
+          <svg
+            id="close-icon2"
+            class="hidden w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <!-- Logo -->
+        <a href="/" class="p-4 lg:w-1/4">
+          <img
+            src="/static/images/whitelogo - horizontal.png"
+            alt=""
+            id="logo"
+            class="h-10 lg:h-11"
+          />
+        </a>
+        <!-- User Navigation Menu -->
+        <div
+          id="user-content"
+          class="fixed rounded-r-lg top-0 left-[-100%] w-[70%] h-full bg-[#EAF7F6] text-[#06002E] transition-transform duration-500 ease-in-out lg:hidden lg:relative lg:h-full lg:full lg:justify-center lg:items-center lg:right-0 lg:bg-transparent lg:text-white lg:block lg:w-2/4 py-14 lg:py-0"
+        >
+          <ul
+            class="flex flex-col lg:flex-row lg:justify-center items-center gap-10 lg:gap-20 h-full lg:h-auto relative"
+          >
+            <li class="user-item lg:hidden">
+              <a href="/login" class="user-link"
+                ><img
+                  src="/static/images/blacklogo-horizontal.png"
+                  alt=""
+                  id="logo"
+                  class="h-10"
+              /></a>
+            </li>
+            <li class="user-item lg:hidden">
+              <a href="#" class="user-link">{{user.username}}</a>
+            </li>
+            <li class="user-item lg:hidden">
+              <a href="#" class="user-link">Edit Profile</a>
+            </li>
+            <li class="user-item lg:hidden">
+              <a href="#" class="user-link">Contact Us</a>
+            </li>
+            <li
+              class="user-item absolute bottom-0 flex justify-center items-center bg-[#06002E] rounded-full w-[80%] h-11 text-xs text-[#EAF7F6] lg:hidden"
+            >
+            {% if request.user.is_authenticated %}
+            <a href="/logout" class="nav-link"><i class="fa-solid fa-right-from-bracket"></i>LOGOUT</a>
+          {% else %}
+            <a href="/login" class="nav-link"
+              >LOGIN TO YOUR ACCOUNT</a
+            >
+            {% endif %}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Hamburger Icon -->
+        <button
+          id="hamburger"
+          class="inline-flex absolute right-0 items-center m-4 p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden focus:outline-none"
+          aria-controls="navbar-default"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Toggle menu</span>
+          <svg
+            id="hamburger-icon"
+            class="w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+          <svg
+            id="close-icon"
+            class="hidden w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <!-- Hamburger Navigation Menu -->
+        <div
+          id="nav-content"
+          class="fixed rounded-l-lg top-0 right-[-100%] w-[70%] h-full bg-[#EAF7F6] text-[#06002E] transition-transform duration-500 ease-in-out lg:relative lg:h-full lg:flex lg:justify-center lg:items-center lg:right-0 lg:bg-transparent lg:text-white lg:block lg:w-2/4 py-14 lg:py-0"
+        >
+          <ul
+            class="flex flex-col lg:flex-row lg:justify-center items-center gap-10 lg:gap-20 h-full lg:h-auto relative"
+          >
+            <li class="nav-item lg:hidden">
+              <a href="/login" class="nav-link"
+                ><img
+                  src="/static/images/blacklogo-horizontal.png"
+                  alt=""
+                  id="logo"
+                  class="h-10"
+              /></a>
+            </li>
+            <li class="nav-item">
+              <a href="#events" class="nav-link">Events</a>
+            </li>
+            <li class="nav-item">
+              <a href="#features" class="nav-link">Features</a>
+            </li>
+            <li class="nav-item">
+              <a href="#team" class="nav-link">Team</a>
+            </li>
+            <li class="nav-item">
+              <a href="/chat/profile" class="nav-link">Users</a>
+            </li>
+            <li
+              class="nav-item absolute bottom-0 flex justify-center items-center bg-[#06002E] rounded-full w-[80%] h-11 text-xs text-[#EAF7F6] lg:hidden"
+            >
+            {% if request.user.is_authenticated %}
+              <a href="/logout" class="nav-link"><i class="fa-solid fa-right-from-bracket"></i>LOGOUT</a>
+            {% else %}
+              <a href="/login" class="nav-link"
+                >LOGIN TO YOUR ACCOUNT</a
+              >
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Login Button for Desktop -->
+         {% if request.user.is_authenticated %}
+         <div class="dropdown hidden lg:flex lg:justify-end lg:block lg:w-1/4">
+           <button
+             id="user-desktop"
+             class="btn bold lg:bg-white lg:opacity-4 lg:text-[#06002E] lg:w-10 lg:h-10 lg:rounded-full"
+           >
+             <a href="#" class="flex lg:items-center lg:justify-center">
+               <svg
+                 class="opacity-75 h-5"
+                 xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 448 512"
+               >
+                 <path
+                   fill="#06002E"
+                   d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"
+                 />
+               </svg>
+             </a>
+           </button>
+           <div class="dropdown-content rounded top-[110%] right-[0%]">
+             <a href="#">{{user.username}}</a>
+             <a href="#">Edit</a>
+             <a href="/logout" class="shadow">Logout</a>
+           </div>
+         </div>
+         {% else %}
+         <div class="lg:w-1/4 hidden nav-content lg:flex lg:justify-end">
+           <button
+             class="btn bold lg:bg-white lg:opacity-4 lg:text-[#06002E] lg:w-24 lg:h-10 lg:rounded-full"
+           >
+             <a
+               href="/login"
+               class="lg:flex lg:items-center lg:justify-center"
+             >
+               LOGIN
+             </a>
+           </button>
+         {% endif %}
+
+        </div>
+      </nav>
+    </div>
+    {% block body1 %}
+    {% endblock body1 %}
+
+    <section id="team" class="bg-white dark:bg-gray-900">
+        <div
+          class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6"
+        >
+          <div class="mx-auto mb-8 max-w-screen-sm lg:mb-16">
+            <h2
+              class="mb-4 text-4xl tracking-tight uppercase cocomat-bold font-extrabold text-gray-900 dark:text-white"
+            >
+              Our team
+            </h2>
+  
+          </div>
+          <div
+            class="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          >
+            <div class="text-center text-gray-500 dark:text-gray-400">
+              <img
+                class="mx-auto mb-4 w-36 h-36 rounded-full"
+                src="https://media.licdn.com/dms/image/v2/D4D03AQGSzi8hzSWSOA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1699451403008?e=1737590400&v=beta&t=YhUIrV3c5AWsaLJKdyIu-bV5pmofmd62xrYhio0StJE"
+                alt="Prince's Avatar"
+              />
+              <h3
+                class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                <a href="#">Prince</a>
+              </h3>
+              <p>Backend Developer</p>
+              <ul class="flex justify-center mt-4 space-x-4">
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/prinve59/"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                    <path fill="#0e66aa" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+                    </svg>
+                  </a>
+                </li>
+  
+                <li>
+                  <a
+                    href="https://github.com/prinve59"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="text-center text-gray-500 dark:text-gray-400">
+              <img
+                class="mx-auto mb-4 w-36 h-36 rounded-full"
+                src="https://media.licdn.com/dms/image/v2/D5603AQFzcROb1YAMCg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726680669480?e=1737590400&v=beta&t=KaVqn1abv1XiTqFAThCSyrBCsQrhPJnnQqz8x1IWx2g"
+                alt="Harsh's Avatar"
+              />
+              <h3
+                class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                <a href="#">Harsh Srivastava</a>
+              </h3>
+              <p>Frontend Developer</p>
+              <ul class="flex justify-center mt-4 space-x-4">
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/harshcsrivastava/"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                    <path fill="#0e66aa" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+                    </svg>
+                  </a>
+                </li>
+  
+                <li>
+                  <a
+                    href="https://github.com/harshcsrivastava"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.behance.net/harshcsrivastava"
+                    class="text-[#ea4c89] hover:text-gray-900 dark:hover:text-white"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                      aria-hidden="true"
+                    >
+                    <svg ><path fill="#ffffff" d="M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8H0v354.4h171.8c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM77.9 135.9H151c28.1 0 53.4 7.9 53.4 40.5 0 30.1-19.7 42.2-47.5 42.2h-79v-82.7zm83.3 233.7H77.9V272h84.9c34.3 0 56 14.3 56 50.6 0 35.8-25.9 47-57.6 47zm358.5-240.7H376V94h143.7v34.9zM576 305.2c0-75.9-44.4-139.2-124.9-139.2-78.2 0-131.3 58.8-131.3 135.8 0 79.9 50.3 134.7 131.3 134.7 61.3 0 101-27.6 120.1-86.3H509c-6.7 21.9-34.3 33.5-55.7 33.5-41.3 0-63-24.2-63-65.3h185.1c.3-4.2 .6-8.7 .6-13.2zM390.4 274c2.3-33.7 24.7-54.8 58.5-54.8 35.4 0 53.2 20.8 56.2 54.8H390.4z"/></svg>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="text-center text-gray-500 dark:text-gray-400">
+              <img
+                class="mx-auto mb-4 w-36 h-36 rounded-full"
+                src="https://media.licdn.com/dms/image/v2/D5635AQE0fmDZ33z1Vw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1728543712033?e=1732773600&v=beta&t=NG6BhC9E_YdvmBvjI2ODfbG0C7zrnwEqercsHrqPCF8"
+                alt="Pratham's Avatar"
+              />
+              <h3
+                class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                <a href="#">Pratham Jasuja</a>
+              </h3>
+              <p>Frontend and API integration</p>
+              <ul class="flex justify-center mt-4 space-x-4">
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/pratham-jasuja-394997298/"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                    <path fill="#0e66aa" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+                    </svg>
+                  </a>
+                </li>
+  
+                <li>
+                  <a
+                    href="https://github.com/Jasujapratham"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </a>
+                </li>
+  
+              </ul>
+            </div>
+            <div class="text-center text-gray-500 dark:text-gray-400">
+              <img
+                class="mx-auto mb-4 w-36 h-36 rounded-full"
+                src="https://media.licdn.com/dms/image/v2/D5603AQH3Jony5ZbKCg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731898674135?e=1737590400&v=beta&t=A_wTZKke70NJd3ZDoGGnUaJr0AlEyKGpe1vFV_jxMU8"
+                alt="Piyush Avatar"
+              />
+              <h3
+                class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                <a href="#">Piyush Singh Bhakuni</a>
+              </h3>
+              <p>MS Office Expert</p>
+              <ul class="flex justify-center mt-4 space-x-4">
+  
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/piyush-singh-bhakuni-449098282/"
+                    class="text-gray-900 hover:text-gray-900 dark:hover:text-white dark:text-gray-300"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                    <path fill="#0e66aa" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+  
+          </div>
+        </div>
+      </section>
+      <footer class="bg-white relative rounded-lg shadow dark:bg-gray-900">
+        <div
+          class="w-full max-w-screen-xl mx-auto p-4 md:py-8 flex lg:block flex-col lg:flex-row justify-center items-center"
+        >
+          <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="/" class="p-4 lg:w-1/4">
+              <img
+                src="/static/images/whitelogo - horizontal.png"
+                alt=""
+                id="logo"
+                class="h-10 lg:h-11"
+              />
+            </a>
+            <ul
+              class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <li>
+                <a href="#" class="hover:underline me-4 md:me-6">Events</a>
+              </li>
+              <li>
+                <a href="#features" class="hover:underline me-4 md:me-6">Features</a>
+              </li>
+              <li>
+                <a href="#team" class="hover:underline me-4 md:me-6">Team</a>
+              </li>
+            </ul>
+          </div>
+          <hr
+            class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"
+          />
+          <span
+            class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
+            >© 2024
+            <a href="https://flowbite.com/" class="hover:underline">UniBuddy™</a>.
+            Name can be changed.</span
+          >
+        </div>
+      </footer>
+    </body>
+  </html>

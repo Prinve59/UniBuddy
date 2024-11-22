@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/register.css" />
+    <style>
+      @font-face {
+  font-family: "Cocomat-Regular";
+  src: url("fonts/CocomatPro-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Cocomat-Bold";
+  src: url("fonts/CocomatPro-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OpenSauce-Regular";
+  src: url("fonts/OpenSauceSans-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "OpenSauce-Light";
+  src: url("fonts/OpenSauceSans-Light.woff") format("woff");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Cocomat-Regular", sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+h1 {
+  font-family: "Cocomat-Bold", sans-serif;
+}
+
+p {
+  font-family: "OpenSauce-Light", sans-serif;
+}
+
+.cocomat-bold {
+  font-family: "Cocomat-Bold", sans-serif;
+}
+
+.open-sans {
+  font-family: "OpenSauce-Regular", sans-serif;
+}
+
+body {
+  color: white;
+  background: linear-gradient(
+    179.4deg,
+    rgb(12, 20, 69) -16.9%,
+    rgb(71, 30, 84) 119.9%
+    );
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-attachment: fixed; /* Keeps the gradient fixed during scrolling */
+    background-size: cover; /* Ensures gradient stretches to cover the entire viewport */
+    background-position: center;
+  width: 100%;
+}
+
+body .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+section {
+  width: 100%;
+}
+
+section .custom-select option {
+  background: transparent;
+  color: #000;
+}
+
+section .btn {
+  font-family: "Cocomat-Bold", sans-serif;
+  transition: ease-in 0.2s;
+      &:hover{
+        color: rgb(184, 66, 184);
+        background-color: white;
+        transform: scale(1.1);
+      }
+}
+.messages {
+    position: absolute;
+    top: 2.5rem;
+    z-index: 10;
+    border-radius: 5px;
+    animation: messages 6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes messages {
+    0%{
+      transform: translateY(-1.5rem);
+      opacity: 0;
+    }
+    9.5%{
+      transform: translateY(.5rem);
+      opacity: 1;
+    }
+    95%{
+      transform: translateY(0rem);
+    }
+    100%{
+      opacity: 0;
+    }
+  }
+  
+  .message.success {
+    font-family: "Cocomat-Bold", sans-serif;
+    background-color: #4caf4f; 
+    color: white; 
+    padding: 15px; 
+    border: 1px solid #45a049;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  
+  .message.error {
+    font-family: "Cocomat-Bold", sans-serif;
+    background-color: #f44336; 
+    color: white; 
+    padding: 14px; 
+    border: 1px solid #e53935; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 10px; 
+  }
+  
+  
+  .message.info {
+    font-family: "Cocomat-Bold", sans-serif;
+    background-color: #2195f3; 
+    color: white; 
+    padding: 15px; 
+    border: 1px solid #1976d2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 10px; 
+  }
+  
+  .message.warning {
+    font-family: "Cocomat-Bold", sans-serif;
+    background-color: #ff9900ea; 
+    color: white; 
+    padding: 15px; 
+    border: 1px solid #fb8c00;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; 
+  }
+  
+  
+  .message {
+    font-weight: bold;
+    text-align: center; 
+    border-radius: 5px; 
+    font-family: "OpenSauce-Regular";
+    text-shadow: 1px 1px 0px black;
+  }
+  
+  
+  
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="static/images/title-logo.png"
+      style="border-radius: 999px"
+    />
+    <title>UniBuddy - Register</title>
+  </head>
+  <body class="flex flex-col items-center">
+    <img
+      src="/static/images/background.avif"
+      alt=""
+      class="-z-2 background opacity-20 w-screen object-cover"
+    />
+      <div class="messages">
+          {% for message in messages %}
+          <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+          {{ message }}
+          </div>
+          {% endfor %}
+      </div>
+      <nav class="sticky z-8 w-full pt-4">
+        <a href="/" class="flex justify-center items-center"
+          ><img
+            src="/static/images/whitelogo - horizontal.png"
+            alt=""
+            srcset=""
+            id="logo"
+            class="w-3/4 md:w-2/4 lg:w-1/3 "
+        /></a>
+      </nav>
+      <section class="flex flex-col items-center gap-5 pb-5 mb-2">
+        <div class="flex flex-col items-center">
+          <h1 class="wel font-bold text-4xl xl:text-6xl my-2">
+            Let's Get Started!
+          </h1>
+          <p
+            class="wel-subtext my-2 tracking-wide text-xs lg:text-base xl:tracking-wider"
+          >
+            Please register to UniBuddy with your KIET email address.
+          </p>
+        </div>
+        <form method="post" action="" class="flex flex-col items-center gap-2 lg:w-2/5">
+          {% csrf_token %}
+          <div class="form-holder flex flex-col uppercase lg:w-4/5">
+            <span
+              class="lnr lnr-phone-handset uppercase text-xs mb-2 xl:text-base"
+              >Full name</span
+            >
+            <input
+              type="text"
+              class="form-control open-sans py-2 px-4 border-2 border-gray-300 rounded bg-transparent w-80 lg:w-full"
+              placeholder="Name"
+              name="name"
+            />
+          </div>
+          <div class="lg:flex lg:w-4/5 lg:gap-2">
+            <div class="form-holder flex flex-col uppercase lg:w-3/4">
+              <span class="lnr lnr-user uppercase text-xs mb-2 xl:text-base">
+                username</span
+              >
+              <input
+                type="text"
+                class="form-control open-sans py-2 px-4 border-2 border-gray-300 rounded bg-transparent w-80 lg:w-full"
+                placeholder="Username"
+                name="username"
+              />
+            </div>
+            <div class="form-holder flex flex-col uppercase lg:w-1/4">
+              <span
+                class="lnr lnr-phone-handset uppercase text-xs mb-2 xl:text-base"
+              >
+                Year</span
+              >
+              <input
+                type="text"
+                class="form-control open-sans py-2 px-4 border-2 border-gray-300 rounded bg-transparent w-80 lg:w-full"
+                placeholder="Year"
+                name="year"
+              />
+            </div>
+          </div>
+          <div class="form-holder flex flex-col uppercase lg:w-4/5">
+            <span class="lnr lnr-envelope uppercase text-xs mb-2 xl:text-base"
+              >Mail</span
+            >
+            <input
+              type="text"
+              class="form-control open-sans py-2 px-4 border-2 border-gray-300 rounded bg-transparent w-80 lg:w-full"
+              placeholder="student@kiet.edu"
+              name="email"
+            />
+          </div>
+          <div class="lg:flex lg:w-4/5 lg:gap-2">
+            <div class="form-holder flex flex-col uppercase lg:w-1/2">
+              <span class="lnr lnr-lock uppercase text-xs mb-2 xl:text-base"
+                >Domain 1</span
+              >
+              <select
+                name="domain1"
+                id="domain1"
+                class="open-sans placeholder-gray-400 text-gray-400 py-2 px-4 border-2 border-gray-300 rounded dark:bg-transparent w-80 lg:w-full custom-select"
+              >
+                <option value="none">Select Domain</option>
+                <option value="aiml">AI/ML</option>
+                <option value="web">Web-Development</option>
+                <option value="cp">CP/DSA</option>
+                <option value="andriod">App-Development</option>
+                <option value="arvr">AR/VR</option>
+                <option value="uiux">UI/UX</option>
+                <option value="graphics">Graphic Designing</option>
+                <option value="videoediting">Video Editing</option>
+                <option value="gaming">Gaming</option>
+                <option value="gamedev">Game Development</option>
+                <option value="photo">Photography</option>
+                <option value="music">Music</option>
+                <option value="acting">Acting</option>
+              </select>
+            </div>
+    
+            <div class="form-holder flex flex-col uppercase lg:w-1/2">
+              <span class="lnr lnr-lock uppercase text-xs mb-2 xl:text-base"
+                >domain 2</span
+              >
+              <select
+                name="domain2"
+                id="domain2"
+                class="open-sans placeholder-gray-400 text-gray-400 py-2 px-4 border-2 border-gray-300 rounded dark:bg-transparent w-80 lg:w-full custom-select"
+              >
+                <option value="none">Select Domain</option>
+                <option value="aiml">AI/ML</option>
+                <option value="web">Web-Development</option>
+                <option value="cp">CP/DSA</option>
+                <option value="andriod">App-Development</option>
+                <option value="arvr">AR/VR</option>
+                <option value="uiux">UI/UX</option>
+                <option value="graphics">Graphic Designing</option>
+                <option value="videoediting">Video Editing</option>
+                <option value="gaming">Gaming</option>
+                <option value="gamedev">Game Development</option>
+                <option value="photo">Photography</option>
+                <option value="music">Music</option>
+                <option value="acting">Acting</option>
+              </select>
+            </div>
+          </div>
+          <div class="lg:flex lg:w-4/5 lg:gap-2">
+            <div class="form-holder flex flex-col uppercase lg:w-1/2">
+              <span class="lnr lnr-lock uppercase text-xs mb-2 xl:text-base"
+                >Password</span
+              >
+              <input
+                type="password"
+                class="form-control open-sans py-2 px-4 border-2 border-gray-300 rounded bg-transparent w-80 lg:w-full"
+                placeholder="Password"
+                name="password"
+              />
+            </div>
+            <div class="form-holder flex flex-col uppercase lg:w-1/2">
+              <span class="lnr lnr-lock uppercase text-xs mb-2 xl:text-base"
+                >Confirm Password</span
+              >
+              <input
+                type="password"
+                class="form-control open-sans py-2 px-4 border-2 border-gray-300 rounded bg-transparent w-80 lg:w-full"
+                placeholder="Confirm Password"
+                name="cpassword"
+              />
+            </div>
+          </div>
+          <button
+            class="btn uppercase text-sm lg:text-base border-2 w-1/3 rounded py-2 mt-4"
+          >
+            Register
+          </button>
+        </form>
+        <div class="">
+          Been here before?
+          <a href="/login" class="underline text-thin">Login Here!</a>
+        </div>
+    </section>
+  </body>
+</html>

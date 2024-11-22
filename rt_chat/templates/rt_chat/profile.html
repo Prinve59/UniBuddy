@@ -1,0 +1,94 @@
+{% extends "header_footer.html" %}
+{% block body1 %}
+<style>
+    .profiles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem;
+        }
+
+        /* Styling for each profile card */
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem;
+            padding: 1.5rem;
+            border: 2px dotted black;
+            border-radius: 10px;
+            min-width: 20%;
+            max-width: 250px;
+            text-align: center;
+            background-color: #f9f9f9;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Profile name styling */
+        .name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Domain styling */
+        .domain1, .domain2 {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        /* Button styling */
+        .chat_button .button {
+            background-color: #6200ea;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Button hover effect */
+        .chat_button .button:hover {
+            background-color: #3700b3;
+            transform: scale(1.05);
+        }
+
+        /* Hover effect for the profile card */
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .box {
+                min-width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .box {
+                min-width: 100%;
+            }
+        }
+</style>
+    <div class="profiles">
+        {% for profile_info in profile_info %}
+        <div class="box" style="display: flex; flex-direction: column; align-items: center; margin: 2rem; border: 2px; border-radius: 10px; min-width: 20%;  ; border-color: black;">
+            <div class="name">{{profile_info.username}}</div>
+            <div class="domain1">{{profile_info.domain1}}</div>
+            <div class="domain2">{{profile_info.domain2}}</div>
+            {% if request.user.is_authenticated %}
+                <div class="chat_button"><a href="{% url 'start-chat'  profile_info.username%}" class="button">chat with me</a></div>
+            {% else %}
+                <div class="chat_button"><a href="/login" class="button">chat with me</a></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock body1 %}

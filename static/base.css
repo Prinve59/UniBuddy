@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "OpenSauce-Light";
+    src: url("/fonts/OpenSauceSans-Light.woff") format("woff");
+  }
+
+  @font-face {
+    font-family: "OpenSauce-Regular";
+    src: url("/fonts/OpenSauceSans-Regular.woff") format("woff");
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px; /* Slim scrollbar */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #8b5cf6; /* Purple color */
+    border-radius: 9999px; /* Rounded thumb */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #f3f4f6; /* Light background for track */
+  }
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'OpenSauce-Regular', sans-serif;
+}
+.nav{
+    height: 2.8rem;
+}
+.view{
+    height: 95vh;
+}
+.chat_page{
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(
+      179.4deg,
+      rgb(12, 20, 69) -16.9%,
+      rgb(71, 30, 84) 119.9%
+    );
+}
+.chat_container{
+    padding-bottom: 1rem;
+    width: 75%;
+    background-color:#06002E;
+    color: aliceblue;
+    border: 2px solid white;
+    border-radius: 1rem;
+}
+.chat_messages{
+    display: flex;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+ 

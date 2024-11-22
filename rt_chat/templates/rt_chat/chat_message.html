@@ -1,0 +1,23 @@
+{% if request.user.username == message.author.username %}
+<div class="flex justify-end mb-4">
+    <div class="message bg-green-500 rounded-l-lg rounded-tr-lg p-4 max-w-[75%]">
+        <span>{{message.body}}</span>
+    </div>
+    <div class="flex items-end">
+        <svg height="13" width="8">
+        </svg>
+    </div>
+</div>
+{% else %}
+<div class="flex justify-start">
+    <div class="flex-col items-end">
+        <div class="message bg-white p-4 max-w-[75%] rounded-r-lg rounded-tl-lg">
+            <span class="text-black"> {{message.body}}</span>
+        </div>
+        <div class="text-sm front-light py-1 ml-10">
+            <span class="text-white">{{message.author.name}}</span>
+            <span class="text-gray-400">@{{message.author.username}}</span>
+        </div>
+    </div>
+</div>
+{% endif %}
