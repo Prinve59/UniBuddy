@@ -6,3 +6,5 @@ django-cleanup
 django-allauth
 django-htmx
 six
+gunicorn
+shortuuid
