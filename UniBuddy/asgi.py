@@ -16,6 +16,7 @@ from channels.auth import AuthMiddlewareStack
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'UniBuddy.settings')
 
 django_asgi_app= get_asgi_application()
+app=application
 
 from rt_chat import routing
 application=ProtocolTypeRouter({
