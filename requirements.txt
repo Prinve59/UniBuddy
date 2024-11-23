@@ -1,3 +1,5 @@
+daphne
+channels
 Django
 pillow
 django-cleanup
