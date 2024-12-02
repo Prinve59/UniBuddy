@@ -1,0 +1,48 @@
+{% extends "D:\django\UniBuddy\templates\base.html" %}
+
+{%  block chat %}
+<div class="p-2  w-[95]" style="border: 1.2px  solid rgba(128, 0, 128, 0.715); border-radius: 1rem;">
+    {% if other_user  %}
+    <div class="username flex justify-center">@{{other_user.username}}</div>
+    {% else %}
+    <div>
+        <div id="online-icon " class="online-icon">
+            <div class="flex justify-center w-full"><span id="online-count" class="pr-1 "></span></div></div>
+    </div>
+    {% endif %}
+</div>
+    <div class="chatbox p-2" id="chatbox" style="height: 95%; overflow-y: scroll;">
+        <div id="chat_messages" class="message flex flex-col justify-end gap-2 p-4" style=" display: flex;">
+                {% for message in chat_messages reversed %}
+                {% include 'rt_chat/chat_message.html' %}
+                {% endfor %}
+        </div>
+        <form id="chat_messages.form" 
+              hx-ext="ws"
+              ws-connect="/ws/chatroom/{{chatroom_name}}"
+              ws-send
+              _="on htmx:wsAfterSend reset() me">
+            {% csrf_token %}
+            {{ form.body }}
+        </form>
+    </div>
+    <script>
+        function scrollToBottom(){
+            const container=document.getElementById('chatbox');
+            container.scrollTop=container.scrollHeight;
+        }
+        scrollToBottom()
+    </script>
+    <style>
+        input[type="text"] {
+            position:absolute;
+            padding: .2rem;
+            border: 2px solid black;
+            border-radius: 0.5rem;
+            color: #333;
+            bottom:0%;
+            width:72%;
+            font-size: 1rem;
+        }
+    </style>
+    {%  endblock chat %}

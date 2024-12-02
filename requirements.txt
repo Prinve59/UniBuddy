@@ -1,0 +1,10 @@
+Django
+pillow
+django-cleanup
+django-allauth
+django-htmx
+six
+daphne
+channels
+shortuuid
+twisted[tls,http2]
