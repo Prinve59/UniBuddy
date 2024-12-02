@@ -8,3 +8,6 @@ daphne
 channels
 shortuuid
 twisted[tls,http2]
+dj_database_url
+psycopg2
+gunicorn
